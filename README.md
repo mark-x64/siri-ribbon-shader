@@ -2,9 +2,9 @@
 
 Shader recreation of the iridescent ribbon in Apple's Siri AI retail video. The ribbon moves from right to left, spreads into a soft color field, and fades out.
 
-![Shader preview](docs/preview.jpg)
+![Iridescent ribbon](docs/preview.gif)
 
-[Rendered sequence](docs/preview.mp4) · [GLSL](src/ribbon.frag) · [Metal](native/SiriRibbon.metal)
+[Full sequence (MP4)](docs/preview.mp4) · [GLSL](src/ribbon.frag) · [Metal](native/SiriRibbon.metal)
 
 ## Run
 

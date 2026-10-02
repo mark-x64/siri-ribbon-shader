@@ -12,7 +12,8 @@ const PARAMETERS = [
   { key: 'bloom', label: 'Glow', min: 0, max: 1.8 },
   { key: 'intensity', label: 'Brightness', min: 0.3, max: 1.6 },
 ];
-const REPOSITORY = 'https://github.com/mark-x64/siri-ribbon-shader';
+const REPOSITORY = 'https://github.com/mark-x64/siri-ribbon-animation-recreation-with-codex';
+const REFERENCE_ENABLED = import.meta.env.VITE_REFERENCE_ENABLED === 'true';
 const referenceUrl = `${import.meta.env.BASE_URL}media/reference.mp4`;
 
 export function App() {
@@ -24,7 +25,7 @@ export function App() {
   const position = useRef(initialTime);
   const timeline = useRef(null);
   const timestamp = useRef(null);
-  const [compare, setCompare] = useState(!query.has('solo'));
+  const [compare, setCompare] = useState(REFERENCE_ENABLED && !query.has('solo'));
   const [playing, setPlaying] = useState(
     () => !query.has('time') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   );
@@ -123,10 +124,12 @@ export function App() {
       </header>
 
       <div className="view-controls">
-        <label className="compare-toggle">
-          <input type="checkbox" checked={compare} onChange={(event) => setCompare(event.target.checked)} />
-          Compare with reference
-        </label>
+        {REFERENCE_ENABLED && (
+          <label className="compare-toggle">
+            <input type="checkbox" checked={compare} onChange={(event) => setCompare(event.target.checked)} />
+            Compare with reference
+          </label>
+        )}
         <label>
           <span className="visually-hidden">Sequence</span>
           <select value={sequence} onChange={(event) => { setSequence(event.target.value); seek(0); }}>
@@ -137,7 +140,7 @@ export function App() {
       </div>
 
       <section className={`previews ${compare ? 'comparison' : ''}`} aria-label="Preview">
-        {compare && (
+        {REFERENCE_ENABLED && compare && (
           <figure key="reference">
             <figcaption>Reference <span>Apple</span></figcaption>
             <div className="stage">
